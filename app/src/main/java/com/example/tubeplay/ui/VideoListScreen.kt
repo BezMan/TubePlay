@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -31,7 +31,7 @@ import java.nio.charset.StandardCharsets
 @Composable
 fun VideoListScreen(navController: NavHostController) {
 
-    val viewModel: VideoViewModel = viewModel()
+    val viewModel: VideoViewModel = hiltViewModel()
     // Observe the video list state
     val videoListState by viewModel.videoListState.observeAsState(ResponseState.Success(emptyList()))
 
@@ -130,7 +130,7 @@ fun VideoItemRow(video: VideoItem, onItemClick: (VideoItem) -> Unit) {
 fun VideoSearchBar(
     onSearch: (String) -> Unit
 ) {
-    val viewModel: VideoViewModel = viewModel()
+    val viewModel: VideoViewModel = hiltViewModel()
 
     // Observe the query input text
     val query by viewModel.query.observeAsState("")

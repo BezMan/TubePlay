@@ -1,5 +1,6 @@
 package com.example.tubeplay.di
 
+import androidx.lifecycle.ViewModel
 import com.example.tubeplay.data.api.YouTubeApiService
 import com.example.tubeplay.data.repository.IRepository
 import com.example.tubeplay.data.repository.VideoRepositoryImpl
@@ -44,7 +45,7 @@ object VMModule {
 
     @Provides
     @ViewModelScoped
-    fun provideVM(repo: IRepository): VideoViewModel {
+    fun provideVM(repo: IRepository): ViewModel {
         return VideoViewModel(repo)
     }
 
