@@ -15,6 +15,10 @@ class VideoViewModel @Inject constructor(
     private val repository: IRepository) : ViewModel() {
 
     // State for holding the list of video items
+    private val _videoImageState = MutableLiveData<String>()
+    val videoImageState = _videoImageState
+
+    // State for holding the list of video items
     private val _videoListState = MutableLiveData<ResponseState<List<VideoItem>>>()
     val videoListState = _videoListState
 

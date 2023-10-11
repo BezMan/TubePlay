@@ -26,7 +26,8 @@ class VideoRepositoryImpl(private val apiService: YouTubeApiService) : IReposito
                                 videoId = searchResult.id.videoId,
                                 title = snippet.title,
                                 description = snippet.description,
-                                thumbnailUrl = snippet.thumbnails.default.url
+                                thumbnailUrl = snippet.thumbnails.default.url,
+                                highResImageUrl = snippet.thumbnails.high.url
                             )
                         }
                         ResponseState.Success(videoItems)

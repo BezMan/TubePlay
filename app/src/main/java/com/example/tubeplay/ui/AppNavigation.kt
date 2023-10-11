@@ -19,12 +19,12 @@ fun AppNavigation() {
             VideoListScreen(navController)
         }
         composable(
-            "videoPlayer/{thumbnailUrl}",
-            arguments = listOf(navArgument("thumbnailUrl") { type = NavType.StringType })
+            "videoPlayer/{imageUrl}",
+            arguments = listOf(navArgument("imageUrl") { type = NavType.StringType })
         ) { backStackEntry ->
-            val thumbnailUrl = backStackEntry.arguments?.getString("thumbnailUrl")
-            if (!thumbnailUrl.isNullOrBlank()) {
-                VideoPlayerScreen(thumbnailUrl)
+            val imageUrl = backStackEntry.arguments?.getString("imageUrl")
+            if (!imageUrl.isNullOrBlank()) {
+                VideoPlayerScreen(imageUrl)
             }
         }
     }

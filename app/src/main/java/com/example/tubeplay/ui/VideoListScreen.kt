@@ -59,7 +59,7 @@ fun VideoListScreen(navController: NavHostController) {
                 VideoList(
                     videos = videoItems,
                     onItemClick = { videoItem ->
-                        val encodedUrl = URLEncoder.encode(videoItem.thumbnailUrl, StandardCharsets.UTF_8.toString())
+                        val encodedUrl = URLEncoder.encode(videoItem.highResImageUrl, StandardCharsets.UTF_8.toString())
                         navController.navigate("videoPlayer/${encodedUrl}")
                     }
                 )
