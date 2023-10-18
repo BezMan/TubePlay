@@ -17,8 +17,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.example.tubeplay.data.model.ResponseState
 import com.example.tubeplay.domain.VideoItem
 import com.example.tubeplay.presentation.VideoViewModel
@@ -106,7 +104,6 @@ fun VideoList(
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun VideoItemRow(video: VideoItem, onItemClick: (VideoItem) -> Unit) {
     Row(
@@ -116,9 +113,8 @@ fun VideoItemRow(video: VideoItem, onItemClick: (VideoItem) -> Unit) {
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        GlideImage(
-            model = video.thumbnailUrl,
-            contentDescription = null,
+        GlideImageComposable(
+            video.thumbnailUrl,
             modifier = Modifier.size(120.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
