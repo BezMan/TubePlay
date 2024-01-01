@@ -24,7 +24,10 @@ fun VideoPlayerScreen(imageUrl: String) {
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        GlideImageComposable(videoImageState, Modifier.fillMaxSize())
+        GlideImageComposable(
+            imageUrl = videoImageState,
+            modifier = Modifier.fillMaxSize()
+        )
     }
 
 }

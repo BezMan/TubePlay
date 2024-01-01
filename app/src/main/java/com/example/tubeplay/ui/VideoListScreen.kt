@@ -114,7 +114,7 @@ fun VideoItemRow(video: VideoItem, onItemClick: (VideoItem) -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         GlideImageComposable(
-            video.thumbnailUrl,
+            imageUrl = video.thumbnailUrl,
             modifier = Modifier.size(120.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
