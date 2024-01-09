@@ -18,6 +18,7 @@ fun VideoPlayerScreen(imageUrl: String) {
     val viewModel: VideoViewModel = hiltViewModel()
 
     val videoImageState by viewModel.videoImageState.observeAsState(imageUrl)
+//    val videoImageState by remember { mutableStateOf(imageUrl) }
 
     Box(
         modifier = Modifier
