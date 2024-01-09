@@ -2,14 +2,28 @@ package com.example.tubeplay.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,14 +34,16 @@ import androidx.navigation.NavHostController
 import com.example.tubeplay.data.model.ResponseState
 import com.example.tubeplay.domain.VideoItem
 import com.example.tubeplay.presentation.VideoViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @Composable
 fun VideoListScreen(navController: NavHostController) {
+
+    val coroutineScope = rememberCoroutineScope()
 
     val viewModel: VideoViewModel = hiltViewModel()
     // Observe the video list state
@@ -38,7 +54,7 @@ fun VideoListScreen(navController: NavHostController) {
         // Set the query in the ViewModel
         viewModel.setQuery(newQuery)
         // Fetch video list using the repository based on the user's query
-        CoroutineScope(Dispatchers.IO).launch {
+        coroutineScope.launch {
             viewModel.searchVideos(newQuery)
         }
 
@@ -57,8 +73,20 @@ fun VideoListScreen(navController: NavHostController) {
                 VideoList(
                     videos = videoItems,
                     onItemClick = { videoItem ->
-                        val encodedUrl = URLEncoder.encode(videoItem.highResImageUrl, StandardCharsets.UTF_8.toString())
-                        navController.navigate("videoPlayer/${encodedUrl}")
+                        coroutineScope.launch {
+                            try {
+                                val encodedUrl = withContext(Dispatchers.IO) {
+                                    URLEncoder.encode(
+                                        videoItem.highResImageUrl,
+                                        StandardCharsets.UTF_8.toString()
+                                    )
+                                }
+                                navController.navigate("videoPlayer/$encodedUrl")
+                            } catch (e: Exception) {
+                                // Handle exceptions if the encoding or navigation fails
+                                e.printStackTrace()
+                            }
+                        }
                     }
                 )
             }
